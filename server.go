@@ -24,6 +24,11 @@ func main() {
 	} else {
 		// Serve spa application:
 		http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./web/owlio-spa/build/static"))))
+
+		http.HandleFunc("/service-worker.js", func(w http.ResponseWriter, r *http.Request) {
+			http.ServeFile(w, r, "./web/owlio-spa/build/service-worker.js")
+		})
+
 		http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 			http.ServeFile(w, r, "./web/owlio-spa/build/index.html")
 		})
