@@ -4,6 +4,8 @@ import (
 	"context"
 	"crypto/tls"
 	"fmt"
+	"net/http"
+	"time"
 
 	"golang.org/x/crypto/acme/autocert"
 )
@@ -41,4 +43,17 @@ var tlsConfig = &tls.Config{
 		tls.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
 	},
 	GetCertificate: m.GetCertificate,
+}
+
+func getTLSServer() *http.Server {
+	srv := &http.Server{
+		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 10 * time.Second,
+		IdleTimeout:  120 * time.Second,
+		TLSConfig:    tlsConfig,
+		Handler:      http.DefaultServeMux,
+		Addr:         ":8080",
+	}
+
+	return srv
 }
