@@ -2,6 +2,12 @@
 
 
 [[projects]]
+  name = "github.com/NYTimes/gziphandler"
+  packages = ["."]
+  revision = "2600fb119af974220d3916a5916d6e31176aac1b"
+  version = "v1.0.1"
+
+[[projects]]
   branch = "master"
   name = "golang.org/x/crypto"
   packages = [
@@ -13,6 +19,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "46f1afba4d3f1fbad0de1917c45e25b020122869163df72cf8a274f67994e625"
+  inputs-digest = "9351ef211b9db708f68e3f7a5bad20b38e1cfa6909ca4a66732ac582fc5a18f3"
   solver-name = "gps-cdcl"
   solver-version = 1
