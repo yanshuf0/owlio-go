@@ -19,9 +19,11 @@
 }
 
 #searchInput {
+    border: 0;
+    outline: 0;
+    background: transparent;
+    border-bottom: 1px solid white;
     color: white;
-    fill: white;
-    border-color: white;
 }
 
 div[class^="MuiInput-underline"]::before {

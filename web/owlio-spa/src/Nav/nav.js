@@ -1,7 +1,6 @@
 import React from "react";
 import { Navbar, NavbarBrand } from "reactstrap";
 import "./nav.css";
-import Input from "@material-ui/core/Input";
 
 export default class Nav extends React.Component {
   constructor() {
@@ -36,7 +35,7 @@ export default class Nav extends React.Component {
         </span>
         <span id="searchSpan">
           {this.state.position !== "0em" && (
-            <Input id="searchInput" type="text" color="secondary"></Input>
+            <input id="searchInput" type="text" color="secondary"/>
           )}
         </span>
       </Navbar>
