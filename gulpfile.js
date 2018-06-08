@@ -13,7 +13,7 @@ var server = null;
 gulp.task("server:build", function() {
   // Build application in the "gobin" folder
   process.chdir(__dirname)
-  var build = child.spawnSync("go", ["install"]);
+  var build = child.spawnSync("go", ["build"]);
 
   if (build.stderr.length) {
     util.log(util.colors.red("Something wrong with this version :"));
@@ -24,9 +24,9 @@ gulp.task("server:build", function() {
         return line.length;
       });
     for (var l in lines)
-      util.log(util.colors.red("Error (go install): " + lines[l]));
+      util.log(util.colors.red("Error (go build): " + lines[l]));
     notifier.notify({
-      title: "Error (go install)",
+      title: "Error (go build)",
       message: lines
     });
   }
@@ -53,12 +53,10 @@ gulp.task("server:spawn", function() {
   var app = path_folder[length - parseInt(1)];
 
   process.chdir(__dirname)
-  process.chdir('../../../../bin')
-
 
   // Run the server
   if (os.platform() == "win32") {
-    server = child.spawn("../../../../bin/" + app + ".exe");
+    server = child.spawn(app + ".exe");
   } else {
     server = child.spawn('./' + app);
   }
@@ -71,6 +69,7 @@ gulp.task("server:spawn", function() {
 
 // Watch files
 gulp.task("server:watch", function() {
+  process.chdir(__dirname)
   gulp.watch(
     ["*.go", "**/*.go"],
     sync(["server:build", "server:spawn"], "server")
