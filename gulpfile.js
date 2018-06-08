@@ -5,14 +5,14 @@ const gulp = require("gulp"),
   reload = require("gulp-livereload"),
   child = require("child_process"),
   os = require("os"),
-  run = require("gulp-run")
+  run = require("gulp-run");
 
 var server = null;
 
 // Compile application
 gulp.task("server:build", function() {
   // Build application in the "gobin" folder
-  process.chdir(__dirname)
+  process.chdir(__dirname);
   var build = child.spawnSync("go", ["build"]);
 
   if (build.stderr.length) {
@@ -52,13 +52,13 @@ gulp.task("server:spawn", function() {
   var length = path_folder.length;
   var app = path_folder[length - parseInt(1)];
 
-  process.chdir(__dirname)
+  process.chdir(__dirname);
 
   // Run the server
   if (os.platform() == "win32") {
     server = child.spawn(app + ".exe");
   } else {
-    server = child.spawn('./' + app);
+    server = child.spawn("./" + app);
   }
 
   // Display terminal informations
@@ -69,7 +69,7 @@ gulp.task("server:spawn", function() {
 
 // Watch files
 gulp.task("server:watch", function() {
-  process.chdir(__dirname)
+  process.chdir(__dirname);
   gulp.watch(
     ["*.go", "**/*.go"],
     sync(["server:build", "server:spawn"], "server")
@@ -77,19 +77,29 @@ gulp.task("server:watch", function() {
 });
 
 gulp.task("client:build", function() {
+  process.chdir(__dirname);
   process.chdir("./web/owlio-spa");
-  return run("npm run build")
-    .exec()
-    .pipe(gulp.dest("output"));
+  return run("npm run build").exec();
 });
 
 // Watch files
 gulp.task("client:watch", function() {
-  process.chdir(__dirname)
+  process.chdir(__dirname);
   gulp.watch(
-    ["./web/owlio-spa/src/*.js", "./web/owlio-spa/src/**/*.js", "./web/owlio-spa/src/*.css", "./web/owlio-spa/src/**/*.css"],
+    [
+      "./web/owlio-spa/src/*.js",
+      "./web/owlio-spa/src/**/*.js",
+      "./web/owlio-spa/src/*.css",
+      "./web/owlio-spa/src/**/*.css"
+    ],
     sync(["client:build"], "client")
   );
 });
 
-gulp.task("default", ["server:build", "client:build", "server:spawn", "server:watch", "client:watch"]);
+gulp.task("default", [
+  "server:build",
+  "client:build",
+  "server:spawn",
+  "server:watch",
+  "client:watch"
+]);

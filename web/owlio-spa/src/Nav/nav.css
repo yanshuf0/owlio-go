@@ -1,0 +1,12 @@
+.filler {
+    /* This fills the remaining space, by using flexbox.
+        Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+}
+
+#circle {
+    height: 1.7em;
+    width: 1.7em;
+    cursor: pointer;
+    transition: all 1s ease-in-out;
+}
