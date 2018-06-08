@@ -12,8 +12,9 @@ func main() {
 	mux := getRouter()
 	// Server configuration:
 	if env.Production() {
-		srv := getTLSServer()
-		go func() { log.Fatal(srv.ListenAndServeTLS("", "")) }()
+		// Get the tls server. Pass the mux it will use:
+		srv := getTLSServer(mux)
+		log.Fatal(srv.ListenAndServeTLS("", ""))
 	} else {
 		log.Fatal(http.ListenAndServe(":8081", mux))
 	}

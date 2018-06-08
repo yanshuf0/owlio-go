@@ -57,9 +57,9 @@ gulp.task('server:spawn', function() {
 
   // Run the server
   if (os.platform() == 'win32') {
-    server = child.spawn(`../../../../bin/` + app + '.exe');
+    server = child.spawn('../../../../bin/' + app + '.exe');
   } else {
-    server = child.spawn(app);
+    server = child.spawn('../../../../bin/' + app);
   }
 
   // Display terminal informations

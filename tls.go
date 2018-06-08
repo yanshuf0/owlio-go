@@ -45,13 +45,13 @@ var tlsConfig = &tls.Config{
 	GetCertificate: m.GetCertificate,
 }
 
-func getTLSServer() *http.Server {
+func getTLSServer(mux *http.ServeMux) *http.Server {
 	srv := &http.Server{
 		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 10 * time.Second,
 		IdleTimeout:  120 * time.Second,
 		TLSConfig:    tlsConfig,
-		Handler:      http.DefaultServeMux,
+		Handler:      mux,
 		Addr:         ":8080",
 	}
 
