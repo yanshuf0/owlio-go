@@ -10,3 +10,20 @@
     cursor: pointer;
     transition: all 1s ease-in-out;
 }
+
+#searchSpan {
+    position: absolute;
+    top: .8em;
+    right: .6em;
+    z-index: 100;
+}
+
+#searchInput {
+    color: white;
+    fill: white;
+    border-color: white;
+}
+
+div[class^="MuiInput-underline"]::before {
+    border-bottom-color: white !important;
+}
