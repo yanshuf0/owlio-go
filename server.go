@@ -16,6 +16,6 @@ func main() {
 		srv := getTLSServer(mux)
 		log.Fatal(srv.ListenAndServeTLS("", ""))
 	} else {
-		log.Fatal(http.ListenAndServe(":8081", mux))
+		log.Fatal(http.ListenAndServe(":4321", mux))
 	}
 }
