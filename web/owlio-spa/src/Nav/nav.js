@@ -2,7 +2,7 @@ import React from "react";
 import { Navbar, NavbarBrand } from "reactstrap";
 import "./nav.css";
 
-export default class Nav extends React.Component {
+export default class NavComponent extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -12,7 +12,7 @@ export default class Nav extends React.Component {
 
   slide = () => {
     this.setState({
-      position: this.state.position === "0em" ? "-10.2em" : "0em"
+      position: this.state.position === "0em" ? "-12em" : "0em"
     });
   };
 

@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
-import Nav from './Nav/nav'
-import BrowserRouter from 'react-router-dom'
+import NavComponent from './Nav/nav'
+import {BrowserRouter, Route} from 'react-router-dom'
+import DashComponent from './Dash/dash'
 
 class App extends Component {
   render() {
     const routes = (
-      <BrowserRouter></BrowserRouter>
+      <BrowserRouter>
+        <Route path="/" component={DashComponent}></Route>
+      </BrowserRouter>
     );
     return (
       <div>
-        <Nav></Nav>
+        <NavComponent></NavComponent>
+        {routes}
       </div>
     );
   }
