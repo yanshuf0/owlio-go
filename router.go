@@ -8,10 +8,10 @@ import (
 
 func getRouter() *http.ServeMux {
 	mux := http.NewServeMux()
-	// gzip assets:
+	// Create G-Zip asset handler:
 	assetHandler := gziphandler.GzipHandler(http.StripPrefix("/static/", http.FileServer(http.Dir("./web/owlio-spa/build/static"))))
 
-	// Serve spa application:
+	// Start spa:
 	mux.Handle("/static/", assetHandler)
 
 	mux.HandleFunc("/service-worker.js", func(w http.ResponseWriter, r *http.Request) {
@@ -21,6 +21,7 @@ func getRouter() *http.ServeMux {
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./web/owlio-spa/build/index.html")
 	})
+	// End spa.
 
 	return mux
 }
