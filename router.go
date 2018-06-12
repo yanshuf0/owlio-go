@@ -3,11 +3,13 @@ package main
 import (
 	"net/http"
 
+	"github.com/gorilla/mux"
+
 	"github.com/NYTimes/gziphandler"
 )
 
-func getRouter() *http.ServeMux {
-	mux := http.NewServeMux()
+func getRouter() *mux.Router {
+	mux := mux.NewRouter()
 	// Create G-Zip asset handler:
 	assetHandler := gziphandler.GzipHandler(http.StripPrefix("/static/", http.FileServer(http.Dir("./web/owlio-spa/build/static"))))
 

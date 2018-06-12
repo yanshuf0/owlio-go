@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/gorilla/mux"
 	"golang.org/x/crypto/acme/autocert"
 )
 
@@ -45,7 +46,7 @@ var tlsConfig = &tls.Config{
 	GetCertificate: m.GetCertificate,
 }
 
-func getTLSServer(mux *http.ServeMux) *http.Server {
+func getTLSServer(mux *mux.Router) *http.Server {
 	srv := &http.Server{
 		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 10 * time.Second,
