@@ -12,13 +12,15 @@ export default class DashComponent extends React.Component {
 
   loadHoots = () => {
       for (let i = 0; i < 8; i++) {
-        this.state.hoots.push('lorem ipsum')
+        this.setState({
+          hoots: this.state.hoots.concat('lorem ipsum')
+        })
       }
   };
 
   render() {
     const items = [];
-    this.state.hoots.map((hoot, i) => {
+    this.state.hoots.map((hoot, i) => 
       items.push(
         <Card
           body
@@ -32,17 +34,13 @@ export default class DashComponent extends React.Component {
           </CardText>
           <Button>Button</Button>
         </Card>
-      );
-    });
+      )
+    );
     return (
       <InfiniteScroll
         pageStart={0}
         loadMore={this.loadHoots}
-        loader={
-          <div className="loader" key={0}>
-            Loading ...
-          </div>
-        }
+        hasMore={true}
       >
         {items}
       </InfiniteScroll>
