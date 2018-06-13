@@ -41,9 +41,9 @@ export default class DashComponent extends React.Component {
                   height: '20em'
                 }}
               >
-                <CardTitle>Special Title Treatment</CardTitle>
+                <CardTitle>Title</CardTitle>
                 <CardText className="cardtext">{hoot}</CardText>
-                <Button>Button</Button>
+                <Button>Actions</Button>
               </Card>
             </Col>
           </Row>
@@ -58,9 +58,9 @@ export default class DashComponent extends React.Component {
                   height: '20em'
                 }}
               >
-                <CardTitle>Special Title Treatment</CardTitle>
+                <CardTitle>Title</CardTitle>
                 <CardText className="cardtext">{hoot}</CardText>
-                <Button>Button</Button>
+                <Button>Actions</Button>
               </Card>
             </Col>
             <Col md="6" className="nopadding">
@@ -73,9 +73,9 @@ export default class DashComponent extends React.Component {
                   height: '20em'
                 }}
               >
-                <CardTitle>Special Title Treatment</CardTitle>
+                <CardTitle>Title</CardTitle>
                 <CardText className="cardtext">{hoot}</CardText>
-                <Button>Button</Button>
+                <Button>Actions</Button>
               </Card>
             </Col>
           </Row>

@@ -2,7 +2,6 @@ const gulp = require("gulp"),
   util = require("gulp-util"),
   notifier = require("node-notifier"),
   sync = require("gulp-sync")(gulp).sync,
-  reload = require("gulp-livereload"),
   child = require("child_process"),
   os = require("os"),
   run = require("gulp-run");
