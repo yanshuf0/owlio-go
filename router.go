@@ -14,7 +14,7 @@ func getRouter() *mux.Router {
 	assetHandler := gziphandler.GzipHandler(http.StripPrefix("/static/", http.FileServer(http.Dir("./web/owlio-spa/build/static"))))
 
 	// Start spa:
-	mux.Handle("/static/", assetHandler)
+	mux.PathPrefix("/static/").Handler(assetHandler)
 
 	mux.HandleFunc("/service-worker.js", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "./web/owlio-spa/build/service-worker.js")
