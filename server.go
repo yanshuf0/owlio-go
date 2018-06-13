@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/yanshuf0/owlio-go/env"
+	"github.com/yanshuf0/owlio-go/models"
 )
 
 func main() {
@@ -18,4 +19,7 @@ func main() {
 	} else {
 		log.Fatal(http.ListenAndServe(":4321", mux))
 	}
+
+	// Close db session
+	defer models.Db.Session.Close()
 }
