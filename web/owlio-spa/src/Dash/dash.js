@@ -31,38 +31,6 @@ export default class DashComponent extends React.Component {
       items.push(
         <Container fluid={true} key={i}>
           <Row>
-            <Col md="6" className="nopadding">
-              <Card
-                body
-                inverse
-                style={{
-                  backgroundColor: '#333',
-                  borderColor: 'white',
-                  height: '20em'
-                }}
-              >
-                <CardTitle>Special Title Treatment</CardTitle>
-                <CardText>{hoot}</CardText>
-                <Button>Button</Button>
-              </Card>
-            </Col>
-            <Col md="6" className="nopadding">
-              <Card
-                body
-                inverse
-                style={{
-                  backgroundColor: '#333',
-                  borderColor: 'white',
-                  height: '20em'
-                }}
-              >
-                <CardTitle>Special Title Treatment</CardTitle>
-                <CardText>{hoot}</CardText>
-                <Button>Button</Button>
-              </Card>
-            </Col>
-          </Row>
-          <Row>
             <Col className="nopadding">
               <Card
                 body
@@ -74,7 +42,39 @@ export default class DashComponent extends React.Component {
                 }}
               >
                 <CardTitle>Special Title Treatment</CardTitle>
-                <CardText>{hoot}</CardText>
+                <CardText className="cardtext">{hoot}</CardText>
+                <Button>Button</Button>
+              </Card>
+            </Col>
+          </Row>
+          <Row>
+            <Col md="6" className="nopadding">
+              <Card
+                body
+                inverse
+                style={{
+                  backgroundColor: '#333',
+                  borderColor: 'white',
+                  height: '20em'
+                }}
+              >
+                <CardTitle>Special Title Treatment</CardTitle>
+                <CardText className="cardtext">{hoot}</CardText>
+                <Button>Button</Button>
+              </Card>
+            </Col>
+            <Col md="6" className="nopadding">
+              <Card
+                body
+                inverse
+                style={{
+                  backgroundColor: '#333',
+                  borderColor: 'white',
+                  height: '20em'
+                }}
+              >
+                <CardTitle>Special Title Treatment</CardTitle>
+                <CardText className="cardtext">{hoot}</CardText>
                 <Button>Button</Button>
               </Card>
             </Col>
