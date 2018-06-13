@@ -25,5 +25,13 @@ func getRouter() *mux.Router {
 	})
 	// End spa.
 
+	// api setup:
+	api := mux.PathPrefix("/api").Subrouter()
+
+	api.HandleFunc("/signup", func(w http.ResponseWriter, r *http.Request) {
+		res := []byte("Hello Signup")
+		w.Write(res)
+	})
+
 	return mux
 }
