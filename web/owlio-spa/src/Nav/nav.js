@@ -12,13 +12,13 @@ export default class NavComponent extends React.Component {
 
   slide = () => {
     this.setState({
-      position: this.state.position === "0em" ? "-12em" : "0em"
+      position: this.state.position === "0em" ? "-11em" : "0em"
     });
   };
 
   render() {
     return (
-      <Navbar color="dark" dark expand="md">
+      <Navbar color="dark" dark>
         <NavbarBrand href="/">owlio.io</NavbarBrand>
         <span className="filler" />
         <span onClick={this.slide}>
