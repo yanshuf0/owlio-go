@@ -43,7 +43,6 @@ export default class NavComponent extends React.Component {
   };
 
   userChange = event => {
-    console.log(event.target.value);
     this.setState({ username: event.target.value });
   };
 
