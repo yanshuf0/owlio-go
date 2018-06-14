@@ -14,17 +14,17 @@ import (
 func getRouter() *mux.Router {
 	mux := mux.NewRouter()
 	// Create packr box:
-	box := packr.NewBox("./web/owlio-spa/build/static")
-	box2 := packr.NewBox("./web/owlio-spa/build")
+	staticBox := packr.NewBox("./web/owlio-spa/build/static")
+	rootBox := packr.NewBox("./web/owlio-spa/build")
 	// Create G-Zip asset handler:
-	assetHandler := gziphandler.GzipHandler(http.StripPrefix("/static/", http.FileServer(box)))
+	assetHandler := gziphandler.GzipHandler(http.StripPrefix("/static/", http.FileServer(staticBox)))
 	// Interceipt service-worker request:
-	serviceWorkerHandler := http.StripPrefix("/service-worker.js", http.FileServer(box2))
+	serviceWorkerHandler := http.StripPrefix("/service-worker.js", http.FileServer(rootBox))
 	// Start spa:
 	mux.PathPrefix("/static/").Handler(assetHandler)
 	mux.PathPrefix("/service-worker.js").Handler(serviceWorkerHandler)
 
-	mux.Handle("/", http.FileServer(box2))
+	mux.Handle("/", http.FileServer(rootBox))
 	// End spa.
 
 	// api setup:
