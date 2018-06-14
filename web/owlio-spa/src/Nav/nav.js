@@ -77,6 +77,7 @@ export default class NavComponent extends React.Component {
         console.error(e);
       }
     }
+    this.toggleModal();
   };
 
   render() {
