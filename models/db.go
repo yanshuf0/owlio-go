@@ -7,7 +7,7 @@ var Db *mgo.Database
 
 func init() {
 	session, e := mgo.Dial("127.0.0.1")
-	Db = session.DB("fridgeit")
+	Db = session.DB("owlio")
 	if e != nil {
 		panic(e)
 	}

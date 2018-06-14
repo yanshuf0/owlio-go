@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/yanshuf0/owlio-go/handlers"
 
 	"github.com/NYTimes/gziphandler"
 )
@@ -26,10 +27,7 @@ func getRouter() *mux.Router {
 	// api setup:
 	api := mux.PathPrefix("/api").Subrouter()
 
-	api.HandleFunc("/signup", func(w http.ResponseWriter, r *http.Request) {
-		res := []byte("Hello Signup")
-		w.Write(res)
-	})
+	api.HandleFunc("/signup", handlers.Signup)
 
 	return mux
 }
