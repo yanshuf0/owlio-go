@@ -3,6 +3,7 @@ package utils
 import (
 	"encoding/json"
 	"log"
+	"os"
 	"time"
 
 	jwt "github.com/dgrijalva/jwt-go"
@@ -13,7 +14,7 @@ type tokenRes struct {
 }
 
 // TODO: Set secret to be read from file on server with randomly generated 128 bit string.
-var secret = []byte(`secret`)
+var secret = []byte(os.Getenv("OWLIO_SECRET"))
 
 // GenerateToken provides a jwt for authenticated users
 func GenerateToken(username string) ([]byte, error) {

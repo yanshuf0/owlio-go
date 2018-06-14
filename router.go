@@ -3,6 +3,8 @@ package main
 import (
 	"net/http"
 
+	"github.com/gobuffalo/packr"
+
 	"github.com/gorilla/mux"
 	"github.com/yanshuf0/owlio-go/handlers"
 
@@ -11,17 +13,18 @@ import (
 
 func getRouter() *mux.Router {
 	mux := mux.NewRouter()
+	// Create packr box:
+	box := packr.NewBox("./web/owlio-spa/build/static")
+	box2 := packr.NewBox("./web/owlio-spa/build")
 	// Create G-Zip asset handler:
-	assetHandler := gziphandler.GzipHandler(http.StripPrefix("/static/", http.FileServer(http.Dir("./web/owlio-spa/build/static"))))
+	assetHandler := gziphandler.GzipHandler(http.StripPrefix("/static/", http.FileServer(box)))
 	// Interceipt service-worker request:
-	serviceWorkerHandler := http.StripPrefix("/service-worker.js", http.FileServer(http.Dir("./web/owlio-spa/build")))
+	serviceWorkerHandler := http.StripPrefix("/service-worker.js", http.FileServer(box2))
 	// Start spa:
 	mux.PathPrefix("/static/").Handler(assetHandler)
 	mux.PathPrefix("/service-worker.js").Handler(serviceWorkerHandler)
 
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./web/owlio-spa/build/index.html")
-	})
+	mux.Handle("/", http.FileServer(box2))
 	// End spa.
 
 	// api setup:
