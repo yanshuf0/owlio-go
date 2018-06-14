@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {
   Navbar,
   NavbarBrand,
@@ -59,6 +60,12 @@ export default class NavComponent extends React.Component {
     this.setState({ signup: !this.state.signup });
   };
 
+  focusInput = (component) => {
+    if (component) {
+        ReactDOM.findDOMNode(component).focus(); 
+    }
+}
+
   submit = async () => {
     if (this.state.signup) {
       try {
@@ -118,7 +125,7 @@ export default class NavComponent extends React.Component {
           </span>
           <span id="searchSpan">
             {this.state.position !== '0rem' && (
-              <input id="searchInput" type="text" color="secondary" />
+              <input ref={this.focusInput} id="searchInput" type="text" color="secondary" onBlur={this.slide} />
             )}
           </span>
         </Navbar>
