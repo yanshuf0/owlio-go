@@ -67,9 +67,13 @@ export default class NavComponent extends React.Component {
           password: this.state.password
         });
         this.toggleModal();
-        toast.success('Successfully signed up!')
+        toast.success('Successfully signed up!');
       } catch (e) {
-        toast.error(e.response.data.error);
+        toast.error(
+          e.response.data.error.charAt(0).toUpperCase() +
+            e.response.data.error.substr(1) +
+            '.'
+        );
       }
     } else {
       try {
@@ -78,9 +82,13 @@ export default class NavComponent extends React.Component {
           password: this.state.password
         });
         this.toggleModal();
-        toast.success('Successfully logged in!')
+        toast.success('Successfully logged in!');
       } catch (e) {
-        toast.error(e.response.data.error);
+        toast.error(
+          e.response.data.error.charAt(0).toUpperCase() +
+            e.response.data.error.substr(1) +
+            '.'
+        );
       }
     }
   };
