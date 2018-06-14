@@ -10,10 +10,12 @@ import {
   Form,
   FormGroup,
   Label,
-  Input
+  Input,
+  Alert
 } from 'reactstrap';
 import './nav.css';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 
 export default class NavComponent extends React.Component {
   constructor() {
@@ -64,8 +66,10 @@ export default class NavComponent extends React.Component {
           username: this.state.username,
           password: this.state.password
         });
+        this.toggleModal();
+        toast.success('Successfully signed up!')
       } catch (e) {
-        console.error(e);
+        toast.error(e.response.data.error);
       }
     } else {
       try {
@@ -73,11 +77,12 @@ export default class NavComponent extends React.Component {
           username: this.state.username,
           password: this.state.password
         });
+        this.toggleModal();
+        toast.success('Successfully logged in!')
       } catch (e) {
-        console.error(e);
+        toast.error(e.response.data.error);
       }
     }
-    this.toggleModal();
   };
 
   render() {
@@ -127,7 +132,9 @@ export default class NavComponent extends React.Component {
                   type="text"
                   name="username"
                   id="username"
-                  placeholder={this.state.signup ? 'username/email' : 'username'}
+                  placeholder={
+                    this.state.signup ? 'username/email' : 'username'
+                  }
                   value={this.state.username}
                   onChange={this.userChange}
                 />
@@ -173,6 +180,7 @@ export default class NavComponent extends React.Component {
             </Button>
           </ModalFooter>
         </Modal>
+        <ToastContainer />
       </div>
     );
   }
