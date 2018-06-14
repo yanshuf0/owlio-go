@@ -19,7 +19,7 @@ export default class NavComponent extends React.Component {
   constructor() {
     super();
     this.state = {
-      position: '0em',
+      position: '0rem',
       showModal: false,
       username: '',
       password: ''
@@ -28,7 +28,7 @@ export default class NavComponent extends React.Component {
 
   slide = () => {
     this.setState({
-      position: this.state.position === '0em' ? '-11em' : '0em'
+      position: this.state.position === '0rem' ? '-12rem' : '0rem'
     });
   };
 
@@ -43,19 +43,22 @@ export default class NavComponent extends React.Component {
   };
 
   userChange = event => {
-    console.log(event.target.value)
+    console.log(event.target.value);
     this.setState({ username: event.target.value });
   };
 
-  submit = () => {
-    axios
-      .post('http://localhost:4321/api/signup', {
+  submit = async () => {
+    try {
+      const res = await axios.post('http://localhost:4321/api/signup', {
         username: this.state.username,
         password: this.state.password
-      })
-      .then(res => console.log(res))
-      .catch(e => console.log(e));
-  }
+      });
+    } catch (e) {
+      console.error(e);
+    } finally {
+      this.toggleModal();
+    }
+  };
 
   render() {
     return (
@@ -81,7 +84,7 @@ export default class NavComponent extends React.Component {
             </svg>
           </span>
           <span id="searchSpan">
-            {this.state.position !== '0em' && (
+            {this.state.position !== '0rem' && (
               <input id="searchInput" type="text" color="secondary" />
             )}
           </span>
