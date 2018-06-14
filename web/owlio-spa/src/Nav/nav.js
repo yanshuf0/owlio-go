@@ -11,8 +11,7 @@ import {
   Form,
   FormGroup,
   Label,
-  Input,
-  Alert
+  Input
 } from 'reactstrap';
 import './nav.css';
 import axios from 'axios';
