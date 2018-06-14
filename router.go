@@ -27,7 +27,9 @@ func getRouter() *mux.Router {
 	// api setup:
 	api := mux.PathPrefix("/api").Subrouter()
 
+	// auth handlers:
 	api.HandleFunc("/signup", handlers.Signup)
+	api.HandleFunc("/signin", handlers.Signin)
 
 	return mux
 }

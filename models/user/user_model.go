@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/yanshuf0/owlio-go/models"
-	"golang.org/x/crypto/bcrypt"
+	"github.com/yanshuf0/owlio-go/utils"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -27,7 +27,7 @@ func NewUser(usr *User) error {
 	if isUsernameTaken(usr.Username) {
 		return fmt.Errorf("username taken")
 	}
-	usr.Password, _ = hashPassword(usr.Password)
+	usr.Password, _ = utils.HashPassword(usr.Password)
 	err = cltn.Insert(usr)
 	if err != nil {
 		return fmt.Errorf("error inserting record")
@@ -35,16 +35,14 @@ func NewUser(usr *User) error {
 	return nil
 }
 
-// hashPassword hashes the password for the db.
-func hashPassword(password string) (string, error) {
-	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
-	return string(bytes), err
-}
-
-// checkPasswordHash checks a password hash
-func checkPasswordHash(password, hash string) bool {
-	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
-	return err == nil
+// FindUser returns the matching user:
+func FindUser(usr *User) (*User, error) {
+	storedUser := new(User)
+	err := cltn.Find(bson.M{"username": usr.Username}).One(&storedUser)
+	if err != nil {
+		return nil, fmt.Errorf("username not found")
+	}
+	return storedUser, nil
 }
 
 func isUsernameTaken(username string) bool {

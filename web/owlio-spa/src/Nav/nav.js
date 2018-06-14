@@ -21,8 +21,11 @@ export default class NavComponent extends React.Component {
     this.state = {
       position: '0rem',
       showModal: false,
+      email: '',
       username: '',
-      password: ''
+      password: '',
+      signup: false,
+      signedIn: false
     };
   }
 
@@ -46,16 +49,33 @@ export default class NavComponent extends React.Component {
     this.setState({ username: event.target.value });
   };
 
+  emailChange = event => {
+    this.setState({ email: event.target.value });
+  };
+
+  signupToggle = () => {
+    this.setState({ signup: !this.state.signup });
+  };
+
   submit = async () => {
-    try {
-      const res = await axios.post('http://localhost:4321/api/signup', {
-        username: this.state.username,
-        password: this.state.password
-      });
-    } catch (e) {
-      console.error(e);
-    } finally {
-      this.toggleModal();
+    if (this.state.signup) {
+      try {
+        const res = await axios.post('http://localhost:4321/api/signup', {
+          username: this.state.username,
+          password: this.state.password
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+      try {
+        const res = await axios.post('http://localhost:4321/api/signin', {
+          username: this.state.username,
+          password: this.state.password
+        });
+      } catch (e) {
+        console.error(e);
+      }
     }
   };
 
@@ -93,36 +113,59 @@ export default class NavComponent extends React.Component {
           toggle={this.toggleModal}
           className={this.props.className}
         >
-          <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+          <ModalHeader toggle={this.toggle}>
+            {this.state.signup ? 'Signup' : 'Login'}
+          </ModalHeader>
           <ModalBody>
             <Form>
               <FormGroup>
-                <Label for="exampleEmail">Email</Label>
+                <Label for="exampleEmail">
+                  {this.state.signup ? 'Username/Email' : 'Username'}
+                </Label>
                 <Input
-                  type="email"
-                  name="email"
-                  id="exampleEmail"
-                  placeholder="e-mail"
+                  type="text"
+                  name="username"
+                  id="username"
+                  placeholder={this.state.signup ? 'username/email' : 'username'}
                   value={this.state.username}
                   onChange={this.userChange}
                 />
               </FormGroup>
+              {this.state.signup && (
+                <FormGroup>
+                  <Label for="exampleEmail">Email</Label>
+                  <Input
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="e-mail"
+                    value={this.state.email}
+                    onChange={this.emailChange}
+                  />
+                </FormGroup>
+              )}
               <FormGroup>
                 <Label for="examplePassword">Password</Label>
                 <Input
                   type="password"
                   name="password"
                   id="examplePassword"
-                  placeholder="password placeholder"
+                  placeholder="password"
                   value={this.state.password}
                   onChange={this.passChange}
                 />
               </FormGroup>
+              <a
+                onClick={this.signupToggle}
+                style={{ color: 'blue', cursor: 'pointer' }}
+              >
+                {this.state.signup ? '(login)' : '(signup)'}
+              </a>
             </Form>
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.submit}>
-              Submit
+              {this.state.signup ? 'Signup' : 'Login'}
             </Button>{' '}
             <Button color="secondary" onClick={this.toggleModal}>
               Cancel
