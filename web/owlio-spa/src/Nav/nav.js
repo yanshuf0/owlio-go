@@ -133,7 +133,7 @@ export default class NavComponent extends React.Component {
           toggle={this.toggleModal}
           className={this.props.className}
         >
-          <ModalHeader toggle={this.toggle}>
+          <ModalHeader toggle={this.toggle} className="theme-coloring">
             {this.state.signup ? 'Signup' : 'Login'}
           </ModalHeader>
           <ModalBody>
@@ -185,7 +185,7 @@ export default class NavComponent extends React.Component {
               </a>
             </Form>
           </ModalBody>
-          <ModalFooter>
+          <ModalFooter class="theme-coloring">
             <Button color="primary" onClick={this.submit}>
               {this.state.signup ? 'Signup' : 'Login'}
             </Button>{' '}
