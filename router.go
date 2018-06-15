@@ -12,27 +12,21 @@ import (
 )
 
 func getRouter() *mux.Router {
-	mux := mux.NewRouter()
+	rtr := mux.NewRouter()
 	// Create packr box:
-	staticBox := packr.NewBox("./web/owlio-spa/build/static")
-	rootBox := packr.NewBox("./web/owlio-spa/build")
+	box := packr.NewBox("./web/owlio-spa/build")
 	// Create G-Zip asset handler:
-	assetHandler := gziphandler.GzipHandler(http.StripPrefix("/static/", http.FileServer(staticBox)))
-	// Interceipt service-worker request:
-	serviceWorkerHandler := http.StripPrefix("/service-worker.js", http.FileServer(rootBox))
-	// Start spa:
-	mux.PathPrefix("/static/").Handler(assetHandler)
-	mux.PathPrefix("/service-worker.js").Handler(serviceWorkerHandler)
+	assetHandler := gziphandler.GzipHandler(http.StripPrefix("/", http.FileServer(box)))
 
-	mux.Handle("/", http.FileServer(rootBox))
-	// End spa.
-
-	// api setup:
-	api := mux.PathPrefix("/api").Subrouter()
+	// api subrouter:
+	api := rtr.PathPrefix("/api").Subrouter()
 
 	// auth handlers:
 	api.HandleFunc("/signup", handlers.Signup)
 	api.HandleFunc("/signin", handlers.Signin)
 
-	return mux
+	// Serve spa:
+	rtr.PathPrefix("/").Handler(assetHandler)
+
+	return rtr
 }
