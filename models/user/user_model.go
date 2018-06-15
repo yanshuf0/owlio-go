@@ -2,6 +2,7 @@ package models
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/yanshuf0/owlio-go/models"
 	"github.com/yanshuf0/owlio-go/utils"
@@ -10,9 +11,6 @@ import (
 
 // Specifies the collection we'll be using for authentication.
 var cltn = models.Db.C("users")
-
-// Using a diffferent type than string for context key.
-type ContextKey string
 
 // User defines user attributes
 type User struct {
@@ -25,6 +23,7 @@ type User struct {
 // NewUser Adds a new user to the db:
 func NewUser(usr *User) error {
 	var err error
+	usr.Username = strings.ToLower(usr.Username)
 	if isUsernameTaken(usr.Username) {
 		return fmt.Errorf("username taken")
 	}
@@ -40,7 +39,7 @@ func NewUser(usr *User) error {
 func FindUser(usr *User) (*User, error) {
 	storedUser := new(User)
 	err := cltn.
-		Find(bson.M{"username": bson.RegEx{Pattern: "^" + usr.Username + "$", Options: "i"}}).
+		Find(bson.M{"username": usr.Username}).
 		One(&storedUser)
 	if err != nil {
 		return nil, fmt.Errorf("username not found")
@@ -51,11 +50,10 @@ func FindUser(usr *User) (*User, error) {
 func isUsernameTaken(username string) bool {
 	if count, _ :=
 		cltn.
-			Find(bson.M{"username": bson.RegEx{Pattern: "^" + username + "$", Options: "i"}}).
+			Find(bson.M{"username": username}).
 			Limit(1).
 			Count(); count > 0 {
 		return true
 	}
-
 	return false
 }
