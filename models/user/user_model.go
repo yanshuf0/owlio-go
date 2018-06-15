@@ -39,7 +39,9 @@ func NewUser(usr *User) error {
 // FindUser returns the matching user:
 func FindUser(usr *User) (*User, error) {
 	storedUser := new(User)
-	err := cltn.Find(bson.M{"username": usr.Username}).One(&storedUser)
+	err := cltn.
+		Find(bson.M{"username": bson.RegEx{Pattern: usr.Username, Options: "i"}}).
+		One(&storedUser)
 	if err != nil {
 		return nil, fmt.Errorf("username not found")
 	}
@@ -48,7 +50,10 @@ func FindUser(usr *User) (*User, error) {
 
 func isUsernameTaken(username string) bool {
 	if count, _ :=
-		cltn.Find(bson.M{"username": bson.RegEx{Pattern: username, Options: "i"}}).Limit(1).Count(); count > 0 {
+		cltn.
+			Find(bson.M{"username": bson.RegEx{Pattern: username, Options: "i"}}).
+			Limit(1).
+			Count(); count > 0 {
 		return true
 	}
 
