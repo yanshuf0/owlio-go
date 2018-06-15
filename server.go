@@ -13,11 +13,11 @@ func main() {
 	rtr := getRouter()
 	// Server configuration:
 	if env.Production() {
-		// Get the tls server. Pass the mux it will use:
+		// Get the tls server. Pass the router it will use:
 		srv := getTLSServer(rtr)
 		log.Fatal(srv.ListenAndServeTLS("", ""))
 	} else {
-		log.Fatal(http.ListenAndServe(":4321", mux))
+		log.Fatal(http.ListenAndServe(":4321", rtr))
 	}
 
 	// Close db session
